@@ -24,6 +24,9 @@
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.2"
-  }
+    "typescript": "^5.0.4"
+  },
+  "description": "Uma startup de tecnologia e desenvolvimento web decidiu criar uma API Rest para gerenciar seus desenvolvedores e projetos. Como você é um dos novos integrantes da equipe, você foi o escolhido para desenvolver essa aplicação.",
+  "keywords": [],
+  "author": ""
 }
