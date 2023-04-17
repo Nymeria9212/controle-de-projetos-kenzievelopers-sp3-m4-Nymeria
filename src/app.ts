@@ -66,6 +66,7 @@ app.delete(
   ensureProjectId,
   tecId,
   checkTecProjectInsert,
+  checkTecProjectExists,
   deleteTecProject
 );
 

@@ -206,6 +206,11 @@ const checkTecProjectExists = async (
   const tec = response.locals.tecId;
 
   const queryResult: QueryResult = await client.query(queryConfig);
+  if (queryResult.rows[0].technologyId == null) {
+    return response
+      .status(400)
+      .json({ message: "Technology not related to the project." });
+  }
 
   const map = queryResult.rows.map((tecno) => {
     return tecno.technologyId;
@@ -215,12 +220,6 @@ const checkTecProjectExists = async (
     return num == tec.id;
   });
 
-  console.log(find);
-  if (map == undefined) {
-    return response
-      .status(400)
-      .json({ message: "Technology not related to the project." });
-  }
   if (find) {
     return response.status(409).json({
       message: "This technology is already associated with the project",
