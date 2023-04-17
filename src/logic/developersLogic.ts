@@ -124,10 +124,10 @@ const createInfodev = async (
 
   const queryString = format(
     `
-  INSERT  INTO 
-      developer_infos (%I)
-VALUES (%L)
-RETURNING*
+      INSERT  INTO 
+          developer_infos (%I)
+      VALUES (%L)
+      RETURNING*
   `,
     Object.keys(newInfo),
     Object.values(newInfo)

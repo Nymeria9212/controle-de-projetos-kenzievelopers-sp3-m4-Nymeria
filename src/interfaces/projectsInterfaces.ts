@@ -17,3 +17,8 @@ export type TProjectResponse = {
   endDate: Date | null;
   developerId: number;
 };
+
+export type TTecnology = {
+  id: number;
+  name: string;
+};

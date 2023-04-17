@@ -30,7 +30,9 @@ CREATE TABLE IF NOT EXISTS technologies(
 "name" VARCHAR(30) NOT NULL
 );
 
-INSERT INTO technologies("name")
+INSERT
+	INTO
+	technologies("name")
 VALUES('JavaScript'),
 ('Python'),
 ('React'),
