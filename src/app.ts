@@ -23,7 +23,7 @@ import {
 } from "./logic/projectsLogic";
 import {
   checkTecProjectExists,
-  checkTecProjectInsert,
+  
   ensureDevInProject,
   ensureProjectId,
   tecId,
@@ -56,7 +56,6 @@ app.delete("/projects/:id", ensureProjectId, deleteProject);
 app.post(
   "/projects/:id/technologies",
   ensureProjectId,
-  checkTecProjectInsert,
   tecId,
   checkTecProjectExists,
   createTecProject
@@ -65,7 +64,6 @@ app.delete(
   "/projects/:id/technologies/:name",
   ensureProjectId,
   tecId,
-  checkTecProjectInsert,
   checkTecProjectExists,
   deleteTecProject
 );

@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import {
   TProject,
-  TProjectResponse,
-  TTecnology,
+  TProjectResponse
 } from "../interfaces/projectsInterfaces";
 import format from "pg-format";
 import { QueryConfig, QueryResult } from "pg";
@@ -70,7 +69,7 @@ const readProject = async (
   };
 
   const queryResult: QueryResult = await client.query(queryConfig);
-  return response.status(200).json(queryResult.rows[0]);
+  return response.status(200).json(queryResult.rows);
 };
 
 const updateProjectId = async (
@@ -132,14 +131,14 @@ const createTecProject = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  const idProject: number = parseInt(request.params.id);
+  const idProject:number=parseInt(request.params.id)
   const { name } = request.body;
-  const id = response.locals.tecId;
+  const idTech:number=parseInt(response.locals.tecId)
   const newData = new Date();
 
   const queryStringTec: string = `
         INSERT INTO 
-            projects_technologies 
+        projects_technologies
             ("addedIn","technologyId","projectId")
         VALUES ($1,$2,$3)
         RETURNING *;
@@ -147,7 +146,7 @@ const createTecProject = async (
 
   const queryConfigTec: QueryConfig = {
     text: queryStringTec,
-    values: [newData, id.id, idProject],
+    values: [newData, idTech, idProject],
   };
 
   const queryResultTec: QueryResult = await client.query(queryConfigTec);
@@ -159,7 +158,8 @@ const createTecProject = async (
               p."estimatedTime" "projectEstimatedTime",
               p.repository "projectRepository",
               p."startDate" "projectStartDate",
-              p."endDate" "projectEndDate"
+              p."endDate" "projectEndDate",
+              p."name" "projectName"
               FROM 
               projects p 
         FULL JOIN 
@@ -190,7 +190,8 @@ const deleteTecProject = async (
   response: Response
 ): Promise<Response> => {
   const id: number = parseInt(request.params.id);
-  const tec = response.locals.nameTec;
+  const tec = response.locals.tecId;
+
 
   const queryString: string = `
       DELETE FROM
@@ -203,7 +204,7 @@ const deleteTecProject = async (
 
   const queryConfig: QueryConfig = {
     text: queryString,
-    values: [id, tec.id],
+    values: [id, tec],
   };
 
   const queryResult: QueryResult = await client.query(queryConfig);

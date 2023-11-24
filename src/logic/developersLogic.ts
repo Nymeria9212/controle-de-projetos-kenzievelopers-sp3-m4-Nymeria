@@ -67,25 +67,25 @@ const updateDeveloper = async (
 ): Promise<Response> => {
   const data: Partial<TDeveloper> = request.body;
   const id: number = parseInt(request.params.id);
-  const queryString: string = format(
-    `
-    UPDATE developers d
-    SET (%I)=(%L)
-    WHERE d.id =$1
-    RETURNING *;
   
-    `,
-    Object.keys(data),
-    Object.values(data)
-  );
-
+  const columnsToUpdate = Object.keys(data).map((key, index) => `${key} = $${index + 1}`);
+  const valuesToUpdate = Object.values(data);
+  
+  const queryString = `
+    UPDATE developers
+    SET ${columnsToUpdate.join(', ')}
+    WHERE id = $${valuesToUpdate.length + 1}
+    RETURNING *;
+  `;
+  
   const queryConfig: QueryConfig = {
     text: queryString,
-    values: [id],
+    values: [...valuesToUpdate, id],
   };
-
+  
   const queryResult: QueryResult = await client.query(queryConfig);
   return response.status(200).json(queryResult.rows[0]);
+  
 };
 
 const deleteDeveloper = async (
